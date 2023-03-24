@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AstronautsTable from "./components/AstronautsTable";
 
 function App() {
   const [astronauts, setAstronauts] = useState([]);
@@ -10,19 +11,7 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  const astronautsList = astronauts.map((astronaut, index) => (
-    <li key={index}>
-      <p>
-        {astronaut.name} Craft: {astronaut.craft}
-      </p>
-    </li>
-  ));
-
-  return (
-    <div>
-      <ul>{astronautsList}</ul>
-    </div>
-  );
+  return <AstronautsTable astronautList={astronauts} />;
 }
 
 export default App;
