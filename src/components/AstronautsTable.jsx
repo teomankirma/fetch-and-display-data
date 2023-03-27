@@ -11,25 +11,27 @@ import {
 } from "@mantine/core";
 import Loading from "react-fullscreen-loading";
 import React, { useState } from "react";
+import StateHandler from "./StateHandler";
 
 function AstronautsTable() {
   const [astronauts, setAstronauts] = useState([]);
-  const [loading, setLoading] = useState();
-  const [successAlert, setSuccessAlert] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
+
+  const [state, setState] = useState({
+    loading: null,
+    success: null,
+    error: null,
+  });
 
   const handleClick = async function () {
-    setLoading(true);
+    setState({ loading: true, success: null, error: null });
     try {
       const result = await fetch("http://api.open-notify.org/astros.json");
       const data = await result.json();
 
       setAstronauts(data.people);
-      setLoading(false);
-      setSuccessAlert(true);
+      setState({ loading: false, success: true, error: null });
     } catch (err) {
-      setLoading(false);
-      setErrorAlert(true);
+      setState({ loading: false, success: null, error: true });
     }
   };
 
@@ -58,7 +60,6 @@ function AstronautsTable() {
           API Call
         </Button>
       </Center>
-      <Loading loading={loading} background="#2ecc71" loaderColor="#3498db" />
       <Space h="xl" />
       <Center>
         <ScrollArea>
@@ -74,31 +75,11 @@ function AstronautsTable() {
         </ScrollArea>
       </Center>
       <Space h="lg" />
-      <Center>
-        {successAlert ? (
-          <Alert
-            title="Successful!"
-            color="green"
-            withCloseButton
-            variant="filled"
-            onClose={() => setSuccessAlert(false)}
-            styles={{ width: "400px" }}
-          >
-            Your API call was successful!
-          </Alert>
-        ) : null}
-        {errorAlert ? (
-          <Alert
-            title="Oops!"
-            color="red"
-            withCloseButton
-            variant="filled"
-            onClose={() => setErrorAlert(false)}
-          >
-            Something went wrong! Please try again!
-          </Alert>
-        ) : null}
-      </Center>
+      <StateHandler
+        showError={state.error}
+        showLoader={state.loading}
+        showSuccess={state.success}
+      />
     </>
   );
 }
