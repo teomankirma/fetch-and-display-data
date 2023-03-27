@@ -8,11 +8,23 @@ import {
   Center,
   Space,
 } from "@mantine/core";
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 
-function AstronautsTable(props) {
-  const rows = props.astronautList.map((item, index) => (
+function AstronautsTable() {
+  const [astronauts, setAstronauts] = useState([]);
+
+  const handleClick = async function () {
+    try {
+      const result = await fetch("http://api.open-notify.org/astros.json");
+      const data = await result.json();
+
+      setAstronauts(data.people);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const rows = astronauts.map((item, index) => (
     <tr key={index}>
       <td>
         <Group spacing="sm">
@@ -33,7 +45,7 @@ function AstronautsTable(props) {
     <div>
       <Space h="lg" />
       <Center className="api-call">
-        <Button color="dark" radius="xl" size="md" onClick={props.func}>
+        <Button color="dark" radius="xl" size="md" onClick={handleClick}>
           API Call
         </Button>
       </Center>
@@ -54,9 +66,5 @@ function AstronautsTable(props) {
     </div>
   );
 }
-
-AstronautsTable.propTypes = {
-  astronautList: PropTypes.array,
-};
 
 export default AstronautsTable;
