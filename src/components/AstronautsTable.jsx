@@ -22,6 +22,10 @@ function AstronautsTable() {
     error: null,
   });
 
+  function closeButtonHandler() {
+    setState({ loading: false, success: false, error: false });
+  }
+
   const handleClick = async function () {
     setState({ loading: true, success: null, error: null });
     try {
@@ -79,6 +83,7 @@ function AstronautsTable() {
         showError={state.error}
         showLoader={state.loading}
         showSuccess={state.success}
+        closeButton={closeButtonHandler}
       />
     </>
   );

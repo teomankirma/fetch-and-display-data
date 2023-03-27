@@ -4,8 +4,6 @@ import Loading from "react-fullscreen-loading";
 function StateHandler(props) {
   let { showLoader = false, showError = false, showSuccess = false } = props;
 
-  const closeButton = false;
-
   if (showLoader) {
     return (
       <Loading
@@ -24,7 +22,7 @@ function StateHandler(props) {
           color="red"
           withCloseButton
           variant="filled"
-          onClose={() => (showLoader = closeButton)}
+          onClose={props.closeButton}
         >
           Something went wrong! Please try again!
         </Alert>
@@ -41,7 +39,7 @@ function StateHandler(props) {
           withCloseButton
           variant="filled"
           styles={{ width: "400px" }}
-          onClose={() => (showSuccess = false)}
+          onClose={props.closeButton}
         >
           Your API call was successful!
         </Alert>
