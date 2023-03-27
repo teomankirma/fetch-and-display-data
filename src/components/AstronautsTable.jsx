@@ -7,9 +7,7 @@ import {
   Button,
   Center,
   Space,
-  Alert,
 } from "@mantine/core";
-import Loading from "react-fullscreen-loading";
 import React, { useState } from "react";
 import StateHandler from "./StateHandler";
 
