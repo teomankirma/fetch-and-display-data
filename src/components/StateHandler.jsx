@@ -1,3 +1,4 @@
+import React from "react";
 import { Alert, Center } from "@mantine/core";
 import Loading from "react-fullscreen-loading";
 
