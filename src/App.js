@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import AstronautsTable from "./components/AstronautsTable";
 
 function App() {
