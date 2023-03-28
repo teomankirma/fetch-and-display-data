@@ -27,7 +27,9 @@ function AstronautsTable() {
   const handleClick = async function () {
     setState({ loading: true, success: null, error: null });
     try {
-      const result = await fetch("http://api.open-notify.org/astros.json");
+      const result = await fetch(
+        "https://teomankirma.github.io/json-api/astronauts.json"
+      );
       const data = await result.json();
 
       setAstronauts(data.people);
